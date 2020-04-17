@@ -69,7 +69,6 @@ class NewDeck extends Component {
             value={deckTitle}
             placeholder="New Deck Title"
             onChangeText={this.handleChange}
-            onSelectionChange={() => {console.log('when is this fired?')}}
             caretHidden={false}/>
           <Text style={styles.formItemTitle}>Pick a Deck Icon</Text>
           <FlatList 
