@@ -6,6 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
@@ -59,19 +62,23 @@ const NewDeckStack = () => {
   )
 }
 
+const store = createStore(reducer)
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <AppStatusBar backgroundColor={TINT_COLOUR} />
-      <Tabs.Navigator
-          screenOptions={tabNavScreenOptions}
-          tabBarOptions={{ activeTintColor: TINT_COLOUR }}
-          barStyle={{ backgroundColor: TINT_COLOUR }}
-          activeColor={white}>
-        <Tabs.Screen name="Decks" component={DeckStack} />
-        <Tabs.Screen name="Add Deck" component={NewDeckStack} />
-      </Tabs.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppStatusBar backgroundColor={TINT_COLOUR} />
+        <Tabs.Navigator
+            screenOptions={tabNavScreenOptions}
+            tabBarOptions={{ activeTintColor: TINT_COLOUR }}
+            barStyle={{ backgroundColor: TINT_COLOUR }}
+            activeColor={white}>
+          <Tabs.Screen name="Decks" component={DeckStack} />
+          <Tabs.Screen name="Add Deck" component={NewDeckStack} />
+        </Tabs.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
