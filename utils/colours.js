@@ -6,3 +6,5 @@ export const orange = '#FAC710'
 export const grey = '#808080'
 export const lightGrey = '#E6E6E6'
 export const white = '#ffffff'
+
+export const TINT_COLOUR = purple
