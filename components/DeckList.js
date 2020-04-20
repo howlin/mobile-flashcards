@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
+import { connect } from 'react-redux'
+import DeckSummaryListItem from './DeckSummaryListItem'
 
 class DeckList extends Component {
   setTitle = () => {
@@ -8,11 +10,16 @@ class DeckList extends Component {
     })
   }
   render(){
+    const { decks } = this.props
+    console.log( decks )
     this.setTitle()
     return (
       <View style={styles.container}>
-        <Text>DeckList</Text>
-        <Button title={'Individual Deck'} onPress={() => {this.props.navigation.push('Deck')}} />
+        <FlatList
+          data={Object.keys(decks)}
+          renderItem={ ({ item }) => <DeckSummaryListItem deck={decks[item]} />}
+          keyExtractor={item => (item)}
+        />
       </View>
     )
   }
@@ -21,8 +28,15 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15
+    paddingLeft: 15,
+    paddingRight: 15
   }
 })
 
-export default DeckList
+function mapStateToProps( decks ) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckList)
