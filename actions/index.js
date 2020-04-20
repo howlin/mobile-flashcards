@@ -8,7 +8,14 @@ export function receiveDecks(decks) {
   }
 }
 
-export function addDeck(deck) {
+export function addDeck(title, icon) {
+  const deck = {
+    [title]: {
+      title,
+      icon,
+      questions: []
+    }
+  }
   return {
     type: ADD_DECK,
     deck

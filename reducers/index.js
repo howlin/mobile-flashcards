@@ -14,5 +14,8 @@ export default function decks ( state = {}, action ) {
         ...action.deck
       }
     }
+    default: {
+      return state
+    }
   }
 }

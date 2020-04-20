@@ -13,11 +13,13 @@ import {
   TouchableWithoutFeedback} from 'react-native'
 import { grey, pink, purple, green } from '../utils/colours'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { addDeck } from '../actions'
+import { connect } from 'react-redux'
 
 class NewDeck extends Component {
   state = {
-    deckTitle: '',
-    deckImage: ''
+    title: '',
+    icon: ''
   }
   setTitle = () => {
     this.props.navigation.setOptions({
@@ -26,16 +28,23 @@ class NewDeck extends Component {
   }
   handleChange = (text) => {
     this.setState(() => ({
-      deckTitle: text
+      title: text
     }))
   }
   handleSelectImage = ( image ) => {
     this.setState(() => ({
-      deckImage: image
+      icon: image
     }))
   }
   handleSubmit = () => {
-    console.log(this.state.deckTitle)
+    const { dispatch } = this.props
+    const { title, icon } = this.state
+    dispatch(addDeck( title, icon ))
+
+    this.setState(() => ({
+      title: '',
+      icon: ''
+    }))
   }
   imageList = [
     'cards-heart', 'cards-diamond', 'cards-club', 'cards-spade', 
@@ -49,7 +58,7 @@ class NewDeck extends Component {
         <TouchableOpacity onPress={() => { this.handleSelectImage(item) }}>
           <MaterialCommunityIcons 
             style={{
-              color: this.state.deckImage === item ? pink : green
+              color: this.state.icon === item ? pink : green
             }}
             name={item}
             size={50} />
@@ -58,7 +67,7 @@ class NewDeck extends Component {
     )
   }
   render(){
-    const { deckImage, deckTitle } = this.state
+    const { icon, title } = this.state
     this.setTitle()
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -66,7 +75,7 @@ class NewDeck extends Component {
           <Text style={styles.formItemTitle}>Deck Name</Text>
           <TextInput
             style={styles.textInput}
-            value={deckTitle}
+            value={title}
             placeholder="New Deck Title"
             onChangeText={this.handleChange}
             caretHidden={false}/>
@@ -80,7 +89,7 @@ class NewDeck extends Component {
           <Button 
             title="Create Deck" 
             color={purple}
-            disabled={ deckTitle === '' || deckImage === '' ? true : false}
+            disabled={ title === '' || icon === '' ? true : false}
             onPress={this.handleSubmit} />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
@@ -114,4 +123,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect()(NewDeck)
