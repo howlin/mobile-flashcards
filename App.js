@@ -15,6 +15,7 @@ import Deck from './components/Deck'
 import Quiz from './components/Quiz'
 import QuizResults from './components/QuizResults'
 import NewQuestion from './components/NewQuestion'
+import middleware from './middleware'
 
 function AppStatusBar ({ backgroundColor, ...props }) {
   return(
@@ -26,7 +27,7 @@ function AppStatusBar ({ backgroundColor, ...props }) {
         {...props} />
     </SafeAreaView>
   ) 
-}
+} 
 
 const Tabs = Platform.OS === 'ios' 
         ? createBottomTabNavigator() 
@@ -62,7 +63,7 @@ const NewDeckStack = () => {
   )
 }
 
-const store = createStore(reducer)
+const store = createStore(reducer, middleware)
 
 export default function App() {
   return (
