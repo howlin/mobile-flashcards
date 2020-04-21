@@ -41,7 +41,7 @@ class NewDeck extends Component {
     const { title, icon } = this.state
     dispatch(addDeck( title, icon ))
 
-    this.props.navigation.navigate('Deck', { deckId: title})
+    this.props.navigation.navigate('Deck', { title: title})
 
     this.setState(() => ({
       title: '',

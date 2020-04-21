@@ -4,24 +4,25 @@ import { Button, StyleSheet, View, Platform } from 'react-native'
 import DeckSummary from './DeckSummary'
 
 class Deck extends Component {
-  setTitle = () => {
+  setTitle = ( title ) => {
     this.props.navigation.setOptions({
-      title: 'Individual Deck'
+      title: title
     })
   }
   render(){
-    const { deck } = this.props
-    this.setTitle()
+    const { deck, navigation } = this.props
+    const { title } = deck
+    this.setTitle( title )
     return (
       <View style={styles.container}>
         <View style={styles.summary}>
-          <DeckSummary deckId={deck.title} />
+          <DeckSummary title={deck.title} />
         </View>
         <View style={styles.button}>
-          <Button title={'Add Card'} onPress={() => {this.props.navigation.push('NewQuestion')}} />
+          <Button title={'Add Card'} onPress={() => { navigation.push('NewQuestion', { title }) }} />
         </View>
         <View style={styles.button}>
-          <Button title={'Start a Quiz'} onPress={() => {this.props.navigation.push('Quiz')}} />
+          <Button title={'Start a Quiz'} onPress={() => { navigation.push('Quiz', { title }) }} />
         </View>
       </View>
     )
@@ -45,9 +46,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps( decks, { route } ) {
-  
   return {
-    deck: decks[route.params.deckId]
+    deck: decks[route.params.title]
   }
 }
 

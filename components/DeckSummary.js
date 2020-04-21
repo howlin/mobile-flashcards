@@ -37,10 +37,9 @@ DeckSummary.propTypes = {
   deck: PropTypes.object.isRequired
 }
 
-function mapStateToProps( decks, { deckId } ) {
-  console.log('DeckSummary', deckId)
+function mapStateToProps( decks, { title } ) {
   return {
-    deck: decks[deckId]
+    deck: decks[title]
   }
 }
 

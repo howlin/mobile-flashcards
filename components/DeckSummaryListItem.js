@@ -7,9 +7,9 @@ import { grey, white } from '../utils/colours'
 
 function DeckSummaryListItem ({ deck, navigation }) {
   return (
-    <TouchableOpacity onPress={() => {navigation.push('Deck', {deckId: deck.title})}}>
+    <TouchableOpacity onPress={() => {navigation.push('Deck', {title: deck.title})}}>
       <View style={styles.container}>
-        <DeckSummary deckId={deck.title} />
+        <DeckSummary title={deck.title} />
       </View>
     </TouchableOpacity>
   )
@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
 })
 
 DeckSummaryListItem.propTypes = {
-  deckId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired
 }
 
-function mapStateToProps( decks, { deckId } ) {
+function mapStateToProps( decks, { title } ) {
   return {
-    deck: decks[deckId]
+    deck: decks[title]
   }
 }
 
