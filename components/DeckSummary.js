@@ -10,7 +10,7 @@ function DeckSummary ({ deck }) {
     <View style={styles.container}>
       <Text style={styles.title}>{deck.title}</Text>
       <MaterialCommunityIcons style={styles.icon} name={deck.icon} size={50} />
-      <Text style={styles.text}>{deck.questions.length} cards</Text>
+      <Text style={styles.text}>{deck.questions.length} {deck.questions.length === 1 ? 'card' : 'cards'}</Text>
     </View>
   )
 }
