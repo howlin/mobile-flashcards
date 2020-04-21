@@ -4,9 +4,9 @@ import DeckSummary from './DeckSummary'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { grey, white } from '../utils/colours'
 
-function DeckSummaryListItem ({ deck }) {
+function DeckSummaryListItem ({ deck, navigation }) {
   return (
-    <TouchableOpacity onPress={() => {this.props.navigation.push('Deck')}}>
+    <TouchableOpacity onPress={() => {navigation.push('Deck', {deck: deck})}}>
       <View style={styles.container}>
         <DeckSummary deck={deck} />
       </View>
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
 })
 
 DeckSummaryListItem.propTypes = {
-  deck: PropTypes.object.isRequired
+  deck: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
 }
 
 export default DeckSummaryListItem
