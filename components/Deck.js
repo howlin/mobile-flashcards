@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Button, StyleSheet, View, Platform } from 'react-native'
 import DeckSummary from './DeckSummary'
 
@@ -9,12 +10,12 @@ class Deck extends Component {
     })
   }
   render(){
-    const { deck } = this.props.route.params
+    const { deck } = this.props
     this.setTitle()
     return (
       <View style={styles.container}>
         <View style={styles.summary}>
-          <DeckSummary deck={deck} />
+          <DeckSummary deckId={deck.title} />
         </View>
         <View style={styles.button}>
           <Button title={'Add Card'} onPress={() => {this.props.navigation.push('NewQuestion')}} />
@@ -43,4 +44,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Deck
+function mapStateToProps( decks, { route } ) {
+  
+  return {
+    deck: decks[route.params.deckId]
+  }
+}
+
+export default connect(mapStateToProps)(Deck)

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { grey, green } from '../utils/colours'
@@ -36,4 +37,11 @@ DeckSummary.propTypes = {
   deck: PropTypes.object.isRequired
 }
 
-export default DeckSummary
+function mapStateToProps( decks, { deckId } ) {
+  console.log('DeckSummary', deckId)
+  return {
+    deck: decks[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(DeckSummary)

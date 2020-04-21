@@ -20,7 +20,7 @@ class DeckList extends Component {
       <View style={styles.container}>
         <FlatList
           data={sortedDecks}
-          renderItem={ ({ item }) => <DeckSummaryListItem deck={item} navigation={navigation} />}
+          renderItem={ ({ item }) => <DeckSummaryListItem deckId={item.title} navigation={navigation} />}
           keyExtractor={item => (item.timestamp.toString())}
         />
       </View>

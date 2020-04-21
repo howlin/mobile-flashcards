@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import DeckSummary from './DeckSummary'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { grey, white } from '../utils/colours'
 
 function DeckSummaryListItem ({ deck, navigation }) {
   return (
-    <TouchableOpacity onPress={() => {navigation.push('Deck', {deck: deck})}}>
+    <TouchableOpacity onPress={() => {navigation.push('Deck', {deckId: deck.title})}}>
       <View style={styles.container}>
-        <DeckSummary deck={deck} />
+        <DeckSummary deckId={deck.title} />
       </View>
     </TouchableOpacity>
   )
@@ -28,8 +29,14 @@ const styles = StyleSheet.create({
 })
 
 DeckSummaryListItem.propTypes = {
-  deck: PropTypes.object.isRequired,
+  deckId: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired
 }
 
-export default DeckSummaryListItem
+function mapStateToProps( decks, { deckId } ) {
+  return {
+    deck: decks[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(DeckSummaryListItem)
