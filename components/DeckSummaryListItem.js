@@ -6,7 +6,7 @@ import { grey, white } from '../utils/colours'
 
 function DeckSummaryListItem ({ deck }) {
   return (
-    <TouchableOpacity onPress={() => { console.log( deck ) }}>
+    <TouchableOpacity onPress={() => {this.props.navigation.push('Deck')}}>
       <View style={styles.container}>
         <DeckSummary deck={deck} />
       </View>
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     borderColor: grey,
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 5,
+    marginTop: 10,
     borderRadius: 10
   }
 })

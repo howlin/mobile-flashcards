@@ -11,14 +11,17 @@ class DeckList extends Component {
   }
   render(){
     const { decks } = this.props
-    console.log( decks )
+    const sortedDecks = Object.keys(decks)
+            .map( key => decks[key] )
+            .sort((a, b) => (b.timestamp - a.timestamp))
+
     this.setTitle()
     return (
       <View style={styles.container}>
         <FlatList
-          data={Object.keys(decks)}
-          renderItem={ ({ item }) => <DeckSummaryListItem deck={decks[item]} />}
-          keyExtractor={item => (item)}
+          data={sortedDecks}
+          renderItem={ ({ item }) => <DeckSummaryListItem deck={item} />}
+          keyExtractor={item => (item.timestamp.toString())}
         />
       </View>
     )

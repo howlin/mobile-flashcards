@@ -13,7 +13,8 @@ export function addDeck(title, icon) {
     [title]: {
       title,
       icon,
-      questions: []
+      questions: [],
+      timestamp: Date.now()
     }
   }
   return {
