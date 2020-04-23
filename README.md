@@ -24,3 +24,9 @@ The app has been tested on
 - iOS Simulator 
 - Android Emulator (Pixel 3a.  Android version R)
 - iPhone XS Max
+
+
+## Notes
+- Each time a quiz starts the cards are shuffled 
+- When a quiz starts, a view is generated for each card in the deck and stacked on top of each other.  I've rotated each card slightly and randomly to give the impression of a stack of cards.  Not convinced it's a good look :) 
+- The animations that's triggered after answering a question are pretty smooth in the iOS simulator and device, but are laggy on the Android emulator
