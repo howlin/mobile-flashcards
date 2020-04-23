@@ -22,7 +22,10 @@ class Deck extends Component {
           <Button title={'Add Card'} onPress={() => { navigation.push('NewQuestion', { title }) }} />
         </View>
         <View style={styles.button}>
-          <Button title={'Start a Quiz'} onPress={() => { navigation.push('Quiz', { title }) }} />
+          <Button 
+            title={'Start a Quiz'} 
+            disabled={ deck.questions.length === 0 ? true : false }
+            onPress={() => { navigation.push('Quiz', { title }) }} />
         </View>
       </View>
     )
