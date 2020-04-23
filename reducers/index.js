@@ -16,7 +16,7 @@ export default function decks ( state = {}, action ) {
       }
     }
     case ADD_QUESTION: {
-      const { question, deckTitle } = action
+      const { card, deckTitle } = action
 
       console.log('deck title: ', deckTitle)
 
@@ -26,7 +26,7 @@ export default function decks ( state = {}, action ) {
           ...state[deckTitle],
           questions: [
             ...state[deckTitle]['questions'],
-            question
+            card
           ]
         }
       }

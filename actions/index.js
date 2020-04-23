@@ -16,15 +16,10 @@ export function addDeck(deck) {
   }
 }
 
-export function addQuestion(deckTitle, question, answer) {
-  const q = {
-    question,
-    answer
-  }
-
+export function addQuestion(deckTitle, card ) {
   return {
     type: ADD_QUESTION,
-    question: q,
+    card, 
     deckTitle
   }
 }

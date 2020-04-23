@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { lightGrey, white, purple, pink } from '../utils/colours'
 import { addQuestion } from '../actions'
+import { addCardToDeck } from '../utils/localStorage'
 
 const MAX_LENGTH = 120
 
@@ -26,7 +27,14 @@ class NewQuestion extends Component {
     const { question, answer } = this.state
     const title = route.params.title
 
-    dispatch(addQuestion( title, question, answer ))
+    const card = {
+      question,
+      answer
+    }
+
+    dispatch(addQuestion( title, card ))
+    addCardToDeck( title, card )
+
     navigation.goBack()
   }
   render(){
