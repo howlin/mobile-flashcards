@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 import DeckSummaryListItem from './DeckSummaryListItem'
 
@@ -15,14 +15,23 @@ class DeckList extends Component {
             .map( key => decks[key] )
             .sort((a, b) => (b.timestamp - a.timestamp))
 
+    console.log('sortedDecks.length ', sortedDecks.length)
+
     this.setTitle()
     return (
       <View style={styles.container}>
-        <FlatList
-          data={sortedDecks}
-          renderItem={ ({ item }) => <DeckSummaryListItem title={item.title} navigation={navigation} />}
-          keyExtractor={item => (item.timestamp.toString())}
-        />
+        {sortedDecks.length === 0 
+          ? <View style={styles.emptyView}>
+              <Text>No Decks Created Yet</Text>
+              <Button title="Create a Deck" onPress={() => navigation.navigate('Add Deck')} />
+            </View>
+          : <FlatList
+              data={sortedDecks}
+              renderItem={ ({ item }) => <DeckSummaryListItem title={item.title} navigation={navigation} />}
+              keyExtractor={item => (item.timestamp.toString())}
+            />
+        }
+        
       </View>
     )
   }
@@ -31,8 +40,14 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  emptyView: {
+    justifyContent: 'space-around',
+    alignSelf: 'center',
+    marginTop: 100,
+    height: 100
   }
 })
 

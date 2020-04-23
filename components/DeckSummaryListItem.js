@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DeckSummary from './DeckSummary'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import { grey, white } from '../utils/colours'
+import { grey, white, lightGrey } from '../utils/colours'
 
 function DeckSummaryListItem ({ deck, navigation }) {
   return (
@@ -20,11 +20,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     backgroundColor: white,
-    borderColor: grey,
-    borderWidth: 1,
     marginBottom: 5,
     marginTop: 10,
-    borderRadius: 10
+    borderColor: lightGrey,
+    borderWidth: .5,
+    backgroundColor: white,
+    borderRadius: 10,
+    shadowColor: grey,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.9,
+    elevation: 2
   }
 })
 
