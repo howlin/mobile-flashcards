@@ -4,16 +4,17 @@ import { connect } from 'react-redux'
 import DeckSummaryListItem from './DeckSummaryListItem'
 import { getDecks } from '../utils/localStorage'
 import { receiveDecks } from '../actions'
+import { setLocalNotification } from '../utils/localStorage'
 
 class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props
 
-    getDecks()
-      .then(results => {
-        dispatch(receiveDecks(JSON.parse(results)))
-      })
+    getDecks().then(results => {
+      dispatch(receiveDecks(JSON.parse(results)))
+    })
     
+    setLocalNotification()
   }
   setTitle = () => {
     this.props.navigation.setOptions({

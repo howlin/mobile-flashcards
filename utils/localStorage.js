@@ -1,6 +1,9 @@
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
+import { Notifications } from 'expo'
+import * as Permissions from 'expo-permissions'
 
 const DECK_STORAGE_KEY = 'Udacity:decks'
+const NOTIFICATION_KEY = 'Udacity:notifications'
 
 export const getDecks = () => {
   return AsyncStorage.getItem(DECK_STORAGE_KEY)
@@ -32,5 +35,58 @@ export const addCardToDeck = (title, card) => {
       ]
 
       AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({[title]: deck}))
+    })
+}
+
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync())
+}
+
+function createNotification () {
+  return {
+    title: 'Time to Stufy!',
+    body: '👋 don\'t forget to study!',
+    ios: {
+      sound: true
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true
+    }
+  }
+}
+
+export function setLocalNotification () {
+  console.log('____ setLocalNotification ______', Platform.OS)
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then((data) => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({ status }) => {
+            console.log('____ data ______', Platform.OS, status, data)
+            if( status === 'granted'){
+              Notifications.cancelAllScheduledNotificationsAsync()
+
+              let tomorrow = new Date()
+              tomorrow.setDate(tomorrow.getDate() + 1)
+              tomorrow.setHours(20)
+              tomorrow.setMinutes(0)
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time: tomorrow,
+                  repeat: 'day'
+                }
+              )
+
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+            }
+          })
+      }
     })
 }

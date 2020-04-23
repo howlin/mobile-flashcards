@@ -2,8 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, Text, Button } from 'react-native'
 import { lightGrey, white, grey, pink, green, orange } from '../utils/colours'
+import { clearLocalNotification, setLocalNotification } from '../utils/localStorage'
 
 class QuizResult extends Component {
+  componentDidMount () {
+    // if we see this component, the user has completed a quiz
+    // it's a good place to clear today's notification and setup a new one for tomorrow
+    clearLocalNotification()
+      .then(setLocalNotification)
+  }
   render(){
     const { score, backToDeck, restartQuiz } = this.props
     let bgColor = pink
