@@ -4,8 +4,6 @@ import { StyleSheet, View, Text, Button, Animated, TouchableOpacity } from 'reac
 import { grey, white, lightGrey, green, pink } from '../utils/colours'
 import { Entypo } from '@expo/vector-icons'
 
-// check cross
-
 class Card extends Component {
   state = {
     showAnswer: false,

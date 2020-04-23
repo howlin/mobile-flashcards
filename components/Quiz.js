@@ -29,8 +29,6 @@ class Quiz extends Component {
     }))
   }
   answerQuestion = (index, answer) => {
-    console.log(`index: ${index} | answer: ${answer}`)
-
     if( answer === 'correct' ){
       this.setState(( prev ) => ({
         score: prev.score + 1

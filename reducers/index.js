@@ -17,9 +17,6 @@ export default function decks ( state = {}, action ) {
     }
     case ADD_QUESTION: {
       const { card, deckTitle } = action
-
-      console.log('deck title: ', deckTitle)
-
       return {
         ...state,
         [deckTitle]: {

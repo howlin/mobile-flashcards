@@ -14,10 +14,6 @@ export const getDecks = () => {
 //
 // }
 
-export const removeDecks = (deckId) => {
-  AsyncStorage.removeItem(DECK_STORAGE_KEY)
-}
-
 export const saveDeck = (deck) => {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [deck.title]: deck
@@ -60,14 +56,12 @@ function createNotification () {
 }
 
 export function setLocalNotification () {
-  console.log('____ setLocalNotification ______', Platform.OS)
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
-            console.log('____ data ______', Platform.OS, status, data)
             if( status === 'granted'){
               Notifications.cancelAllScheduledNotificationsAsync()
 
