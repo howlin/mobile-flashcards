@@ -2,8 +2,19 @@ import React, { Component } from 'react'
 import { StyleSheet, View, FlatList, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 import DeckSummaryListItem from './DeckSummaryListItem'
+import { getDecks } from '../utils/localStorage'
+import { receiveDecks } from '../actions'
 
 class DeckList extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    getDecks()
+      .then(results => {
+        dispatch(receiveDecks(JSON.parse(results)))
+      })
+    
+  }
   setTitle = () => {
     this.props.navigation.setOptions({
       title: 'Deck List'
@@ -15,9 +26,8 @@ class DeckList extends Component {
             .map( key => decks[key] )
             .sort((a, b) => (b.timestamp - a.timestamp))
 
-    console.log('sortedDecks.length ', sortedDecks.length)
-
     this.setTitle()
+
     return (
       <View style={styles.container}>
         {sortedDecks.length === 0 
@@ -31,7 +41,6 @@ class DeckList extends Component {
               keyExtractor={item => (item.timestamp.toString())}
             />
         }
-        
       </View>
     )
   }

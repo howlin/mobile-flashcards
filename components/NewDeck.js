@@ -15,6 +15,7 @@ import { grey, pink, purple, green } from '../utils/colours'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
+import { saveDeck } from '../utils/localStorage'
 
 class NewDeck extends Component {
   state = {
@@ -39,7 +40,16 @@ class NewDeck extends Component {
   handleSubmit = () => {
     const { dispatch } = this.props
     const { title, icon } = this.state
-    dispatch(addDeck( title, icon ))
+
+    const deck = {
+      title,
+      icon,
+      questions: [],
+      timestamp: Date.now()
+    }
+    
+    dispatch(addDeck( deck ))
+    saveDeck( deck )
 
     this.props.navigation.navigate('Deck', { title: title})
 

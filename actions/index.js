@@ -9,13 +9,7 @@ export function receiveDecks(decks) {
   }
 }
 
-export function addDeck(title, icon) {
-  const deck = {
-    title,
-    icon,
-    questions: [],
-    timestamp: Date.now()
-  }
+export function addDeck(deck) {
   return {
     type: ADD_DECK,
     deck
