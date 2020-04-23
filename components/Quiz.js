@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import Card from './Card'
 import QuizResult from './QuizResults'
 
@@ -8,7 +8,8 @@ class Quiz extends Component {
   state = {
     quiz: [],
     score: 0,
-    quizFinished: false
+    quizFinished: false,
+    counter: 1
   }
   setTitle = () => {
     this.props.navigation.setOptions({
@@ -25,7 +26,8 @@ class Quiz extends Component {
     this.setState(() => ({ 
       quiz,
       score: 0,
-      quizFinished: false
+      quizFinished: false,
+      counter: 1
     }))
   }
   answerQuestion = (index, answer) => {
@@ -34,6 +36,10 @@ class Quiz extends Component {
         score: prev.score + 1
       }))
     }
+
+    this.setState(( prev ) => ({
+      counter: prev.counter + 1
+    }))
 
     // if index is equal to 0, it means the user has 
     // answered the last question in the deck
@@ -65,6 +71,8 @@ class Quiz extends Component {
                   answerQuestion={this.answerQuestion} />
               ))}
         </View>
+        {!this.state.quizFinished
+          && <Text>{this.state.counter} or {this.state.quiz.length}</Text>} 
       </View>
     )
   }
